@@ -1,0 +1,926 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>instagram</title>
+    <link rel="stylesheet" href="style.css" />
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@300,400,500,700,900&display=swap");
+      * {
+        margin: 0%;
+        padding: 0%;
+        box-sizing: border-box;
+      }
+      *:focus {
+        outline: none;
+      }
+      body {
+        width: 100%;
+        background: #fafafa;
+        position: relative;
+        font-family: "roboto", sans-serif;
+      }
+      .navbar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 50px;
+        background: #fff;
+        border-bottom: 1px solid #dfdfdf;
+        display: flex;
+        justify-content: center;
+        padding: 5px 0;
+      }
+
+      .nav-wrapper {
+        width: 70%;
+        max-width: 1000px;
+        height: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .brand-img {
+        height: 100%;
+        margin-top: 5px;
+      }
+      .search-box {
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 200px;
+        height: 25px;
+        background: #fafafa;
+        border-bottom: 1px solid #dfdfdf;
+        border-radius: 2px;
+        border: none;
+        color: rgba(0, 0, 0, 0.5);
+        text-align: center;
+        text-transform: capitalize;
+      }
+
+      .search-box::placeholder {
+        color: rgba(0, 0, 0, 0.5);
+      }
+
+      .nav-items {
+        height: 22px;
+        position: relative;
+      }
+      .icon {
+        height: 100%;
+        cursor: pointer;
+        margin: 0 10px;
+        display: inline-block;
+      }
+      .user-profile {
+        width: 22px;
+        border-radius: 50%;
+        background-image: url("img/profile-pic.png");
+        background-size: cover;
+      }
+      .main {
+        width: 100%;
+        padding: 40px 0;
+        display: flex;
+        justify-content: center;
+        margin-top: 50px;
+      }
+
+      .wrapper {
+        width: 70%;
+        max-width: 1000px;
+        display: grid;
+        grid-template-columns: 60% 40%;
+        grid-gap: 30px;
+      }
+
+      .left-col {
+        display: flex;
+        flex-direction: column;
+      }
+      .status-wrapper {
+        width: 100%;
+        height: 120px;
+        background: #fff;
+        border: 1px solid #dfdfdf;
+        border-radius: 2px;
+        padding-right: 0;
+        display: flex;
+        align-items: center;
+        overflow: hidden;
+        overflow-x: auto;
+      }
+      .status-wrapper::-webkit-scrollbar {
+        display: none;
+      }
+
+      .status-card {
+        flex: 0 0 auto;
+        width: 80px;
+        max-width: 80px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-right: 2px;
+      }
+      .profile-pic {
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        overflow: hidden;
+        padding: 2px;
+        background: linear-gradient(
+          45deg,
+          rgb(255, 230, 0),
+          rgb(255, 0, 128) 80%
+        );
+      }
+      .profile-pic img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: 50%;
+        border: 2px solid #fff;
+      }
+      .username {
+        width: 100%;
+        overflow: hidden;
+        text-align: center;
+        font-size: 12px;
+        margin-top: 5px;
+        font-weight: 700;
+        color: rgba(0, 0, 0, 0.5);
+      }
+      .post {
+        width: 100%;
+        height: auto;
+        background: #fff;
+        border: 1px solid #dad7d7;
+        margin-top: 40px;
+      }
+
+      .info {
+        width: 100%;
+        height: 60px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0 20px;
+      }
+      .info .username {
+        width: auto;
+        margin: 0% 2%;
+        font-weight: bold;
+        color: #000;
+        font-size: 12px;
+      }
+      .info .options {
+        height: 10px;
+        cursor: pointer;
+      }
+      .info .user {
+        display: flex;
+        align-items: center;
+      }
+      .info .profile-pic {
+        height: 40px;
+        width: 40px;
+        padding: 0;
+        margin-left: -4%;
+        background: none;
+      }
+      .info .profile-pic img {
+        border: none;
+      }
+      .post-images {
+        width: 100%;
+        height: 500px;
+        object-fit: cover;
+      }
+      .post-content {
+        width: 100%;
+        padding: 20px;
+      }
+      .likes {
+        font-weight: bold;
+      }
+      .discription {
+        margin: 10px 0;
+        font-size: 14px;
+        line-height: 20px;
+      }
+      .discription span {
+        font-weight: bold;
+        margin-right: 10px;
+      }
+      .post-time {
+        color: rgba(0, 0, 0, 0.5);
+        font-size: 12px;
+      }
+
+      .comment-wrapper {
+        width: 100%;
+        height: 50px;
+        border-radius: 1px solid #dfdfdf;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .comment-wrapper .icon {
+        height: 25px;
+      }
+      .comment-box {
+        width: 80%;
+        height: 100%;
+        border: none;
+        outline: none;
+        font-size: 14px;
+      }
+      .comment-btn,
+      .action-btn {
+        width: 70px;
+        height: 100%;
+        background: none;
+        border: none;
+        outline: none;
+        text-transform: capitalize;
+        font-size: 16px;
+        color: rgb(0, 162, 255);
+        opacity: 0.5;
+      }
+
+      .reaction-wrapper {
+        width: 100%;
+        height: 50px;
+        display: flex;
+        margin-top: -20px;
+        align-items: center;
+      }
+
+      .reaction-wrapper .icon {
+        height: 25px;
+        margin: 0;
+        margin-right: 20px;
+      }
+
+      .reaction-wrapper .icon.save {
+        margin-left: auto;
+      }
+
+      .right-col {
+        padding: 20px;
+      }
+
+      .profile-card {
+        width: fit-content;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-bottom: 10px;
+      }
+
+      .profile-card .profile-pic {
+        flex: 0 0 auto;
+        padding: 0;
+        background: none;
+        width: 40px;
+        height: 40px;
+        margin-right: 10px;
+      }
+
+      .profile-card:first-child .profile-pic {
+        width: 70px;
+        height: 70px;
+      }
+      .profile-card .profile-pic img {
+        border: none;
+      }
+
+      .profile-card .profile-pic img {
+        border: none;
+      }
+      .profile-card .username {
+        font-weight: 500;
+        font-size: 14px;
+        color: #000;
+      }
+
+      .sub-text {
+        color: rgba(0, 0, 0, 0.5);
+        font-size: 12px;
+        font-weight: 500;
+        margin-top: 5px;
+      }
+
+      .action-btn {
+        opacity: 1;
+        font-weight: 700;
+        font-size: 12px;
+      }
+      .suggestion-text {
+        font-size: 14px;
+        color: rgba(0, 0, 0, 0.5);
+        font-weight: 700;
+        margin: 20px 0;
+      }
+      @media (max-width: 1100px) {
+        .right-col,
+        .search-box {
+          display: none;
+        }
+        .nav-wrapper,
+        .wrapper {
+          width: 90%;
+        }
+        .wrapper {
+          display: block;
+        }
+      }
+      @media (max-width: 500px) {
+        .nav-items .icon {
+          margin: 0 5px;
+        }
+        .post-image {
+          height: 300px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="navbar">
+      <div class="nav-wrapper">
+        <img src="https://i.ibb.co/qBSw10r/logo.png" class="brand-img" alt="" />
+        <input type="text" class="search-box" placeholder="Search" />
+        <div class="nav-items">
+          <img src="https://i.ibb.co/wW9WwmP/home.png" class="icon" alt="" />
+          <img
+            src="https://i.ibb.co/5hGkCk1/messenger.png"
+            class="icon"
+            alt=""
+          />
+          <img src="https://i.ibb.co/1LbW1wc/add.png" class="icon" alt="" />
+          <img src="https://i.ibb.co/kJxpjtt/explore.png" class="icon" alt="" />
+          <img src="https://i.ibb.co/wRSVF4N/like.png" class="icon" alt="" />
+          <div class="icon user-profile"></div>
+        </div>
+      </div>
+    </nav>
+    <section class="main">
+      <div class="wrapper">
+        <div class="left-col">
+          <div class="status-wrapper">
+            <div class="status-card">
+              <div class="profile-pic">
+                <img src="https://i.ibb.co/Qm5mTJz/profile.jpg" alt="" />
+              </div>
+              <p class="username">Your Story</p>
+            </div>
+            <div class="status-card">
+              <div class="profile-pic">
+                <img src="https://i.ibb.co/RBKzV9Y/rutwik.jpg" alt="" />
+              </div>
+              <p class="username">rutwiksai_4u</p>
+            </div>
+            <div class="status-card">
+              <div class="profile-pic">
+                <img src="https://i.ibb.co/8YF4MwT/shriram2.jpg" alt="" />
+              </div>
+              <p class="username">Shriram_maid</p>
+            </div>
+            <div class="status-card">
+              <div class="profile-pic">
+                <img src="https://i.ibb.co/HH0TrLN/pradeep.jpg" alt="" />
+              </div>
+              <p class="username">pradipsadhe</p>
+            </div>
+            <div class="status-card">
+              <div class="profile-pic">
+                <img src="https://i.ibb.co/cLgn5Kg/aslam2.jpg" alt="" />
+              </div>
+              <p class="username">aslaminamdar_333</p>
+            </div>
+            <div class="status-card">
+              <div class="profile-pic">
+                <img src="https://i.ibb.co/X82q9Tc/rahul.jpg" alt="" />
+              </div>
+              <p class="username">rahulchaudhari</p>
+            </div>
+            <div class="status-card">
+              <div class="profile-pic">
+                <img src="https://i.ibb.co/wr5xFSh/prasad.jpg" alt="" />
+              </div>
+              <p class="username">prasad_gore</p>
+            </div>
+            <div class="status-card">
+              <div class="profile-pic">
+                <img src="https://i.ibb.co/6FShVv5/daya.jpg" alt="" />
+              </div>
+              <p class="username">Dayanand_sonatakke</p>
+            </div>
+          </div>
+          <div class="post">
+            <div class="info">
+              <div class="user">
+                <div class="profile-pic">
+                  <img src="https://i.ibb.co/RBKzV9Y/rutwik.jpg" alt="" />
+                </div>
+                <p class="username">rutwiksai_4u</p>
+              </div>
+              <img
+                src="https://i.ibb.co/JHVjcr1/option.png"
+                class="options"
+                alt=""
+              />
+            </div>
+            <img
+              src="https://i.ibb.co/RY82kjN/rutwik2.jpg"
+              class="post-images"
+              alt=""
+            />
+            <div class="post-content">
+              <div class="reaction-wrapper">
+                <img
+                  src="https://i.ibb.co/wRSVF4N/like.png"
+                  class="icon"
+                  alt=""
+                />
+                <img
+                  src="https://i.ibb.co/C8snxfB/comment.png"
+                  class="icon"
+                  alt=""
+                />
+                <img
+                  src="https://i.ibb.co/PYqtjxq/send.png"
+                  class="icon"
+                  alt=""
+                />
+                <img
+                  src="https://i.ibb.co/pbMx5YG/save.png"
+                  class="save icon"
+                  alt=""
+                />
+              </div>
+              <p class="likes">1,267 likes</p>
+              <p class="discription"><span>rutwiksai_4u</span>👑🔥✌🏻</p>
+
+              <p class="post-time">1 Day Ago</p>
+            </div>
+            <div class="comment-wrapper">
+              <img
+                src="https://i.ibb.co/hL2tMxF/smile.png"
+                class="icon"
+                alt=""
+              />
+              <input
+                type="text"
+                class="comment-box"
+                placeholder="add a comment"
+              />
+              <button class="comment-btn">post</button>
+            </div>
+          </div>
+          <div class="post">
+            <div class="info">
+              <div class="user">
+                <div class="profile-pic">
+                  <img src="https://i.ibb.co/82hTVmV/rahul2.jpg" alt="" />
+                </div>
+                <p class="username">rahulchaudhari</p>
+              </div>
+              <img
+                src="https://i.ibb.co/JHVjcr1/option.png"
+                class="options"
+                alt=""
+              />
+            </div>
+            <img
+              src="https://i.ibb.co/82hTVmV/rahul2.jpg"
+              class="post-images"
+              alt=""
+            />
+            <div class="post-content">
+              <div class="reaction-wrapper">
+                <img
+                  src="https://i.ibb.co/wRSVF4N/like.png"
+                  class="icon"
+                  alt=""
+                />
+                <img
+                  src="https://i.ibb.co/C8snxfB/comment.png"
+                  class="icon"
+                  alt=""
+                />
+                <img
+                  src="https://i.ibb.co/PYqtjxq/send.png"
+                  class="icon"
+                  alt=""
+                />
+                <img
+                  src="https://i.ibb.co/pbMx5YG/save.png"
+                  class="save icon"
+                  alt=""
+                />
+              </div>
+              <p class="likes">670 likes</p>
+              <p class="discription">
+                <span>rahulchaudhari</span> जिंदगी संवारने कों तो ज़िंदगी पड़ी
+                है, चलो वो लम्हा सवारते है जहां ज़िंदगी खड़ी है।❣️❤️
+              </p>
+              <p class="post-time">5 Days ago</p>
+            </div>
+            <div class="comment-wrapper">
+              <img
+                src="https://i.ibb.co/hL2tMxF/smile.png"
+                class="icon"
+                alt=""
+              />
+              <input
+                type="text"
+                class="comment-box"
+                placeholder="add a comment"
+              />
+              <button class="comment-btn">post</button>
+            </div>
+          </div>
+          <div class="post">
+            <div class="info">
+              <div class="user">
+                <div class="profile-pic">
+                  <img src="https://i.ibb.co/cLgn5Kg/aslam2.jpg" alt="" />
+                </div>
+                <p class="username">aslaminamdar_333</p>
+              </div>
+              <img src="img/option.PNG" class="options" alt="" />
+            </div>
+            <img
+              src="https://i.ibb.co/b3vsXWK/aslam3.jpg"
+              class="post-images"
+              alt=""
+            />
+            <div class="post-content">
+              <div class="reaction-wrapper">
+                <img
+                  src="https://i.ibb.co/wRSVF4N/like.png	"
+                  class="icon"
+                  alt=""
+                />
+                <img
+                  src="https://i.ibb.co/C8snxfB/comment.png"
+                  class="icon"
+                  alt=""
+                />
+                <img
+                  src="https://i.ibb.co/PYqtjxq/send.png"
+                  class="icon"
+                  alt=""
+                />
+                <img
+                  src="https://i.ibb.co/pbMx5YG/save.png"
+                  class="save icon"
+                  alt=""
+                />
+              </div>
+              <p class="likes">3,481 likes</p>
+              <p class="discription">
+                <span>aslaminamdar_333</span>“Nothing is impossible. The word
+                itself says ‘I’m possible!'”#champion👑🔥
+              </p>
+              <p class="post-time">9 minute ago</p>
+            </div>
+            <div class="comment-wrapper">
+              <img
+                src="https://i.ibb.co/hL2tMxF/smile.png"
+                class="icon"
+                alt=""
+              />
+              <input
+                type="text"
+                class="comment-box"
+                placeholder="add a comment"
+              />
+              <button class="comment-btn">post</button>
+            </div>
+          </div>
+          <div class="post">
+            <div class="info">
+              <div class="user">
+                <div class="profile-pic">
+                  <img src="https://i.ibb.co/8YF4MwT/shriram2.jpg" alt="" />
+                </div>
+                <p class="username">Shriram_maid</p>
+              </div>
+              <img
+                src="https://i.ibb.co/JHVjcr1/option.png"
+                class="options"
+                alt=""
+              />
+            </div>
+            <img
+              src="https://i.ibb.co/8YF4MwT/shriram2.jpg"
+              class="post-images"
+              alt=""
+            />
+            <div class="post-content">
+              <div class="reaction-wrapper">
+                <img
+                  src="https://i.ibb.co/wRSVF4N/like.png	"
+                  class="icon"
+                  alt=""
+                />
+                <img
+                  src="https://i.ibb.co/C8snxfB/comment.png"
+                  class="icon"
+                  alt=""
+                />
+                <img
+                  src="https://i.ibb.co/PYqtjxq/send.png"
+                  class="icon"
+                  alt=""
+                />
+                <img
+                  src="https://i.ibb.co/pbMx5YG/save.png"
+                  class="save icon"
+                  alt=""
+                />
+              </div>
+              <p class="likes">842 likes</p>
+              <p class="discription"><span>Shriram_maid</span>😎😍❤️</p>
+              <p class="post-time">2 minute ago</p>
+            </div>
+            <div class="comment-wrapper">
+              <img
+                src="https://i.ibb.co/hL2tMxF/smile.png"
+                class="icon"
+                alt=""
+              />
+              <input
+                type="text"
+                class="comment-box"
+                placeholder="add a comment"
+              />
+              <button class="comment-btn">post</button>
+            </div>
+          </div>
+          <div class="post">
+            <div class="info">
+              <div class="user">
+                <div class="profile-pic">
+                  <img src="https://i.ibb.co/wr5xFSh/prasad.jpg" alt="" />
+                </div>
+                <p class="username">prasad_gore</p>
+              </div>
+              <img
+                src="https://i.ibb.co/JHVjcr1/option.png"
+                class="options"
+                alt=""
+              />
+            </div>
+            <img
+              src="https://i.ibb.co/wr5xFSh/prasad.jpg"
+              class="post-images"
+              alt=""
+            />
+            <div class="post-content">
+              <div class="reaction-wrapper">
+                <img
+                  src="https://i.ibb.co/wRSVF4N/like.png	"
+                  class="icon"
+                  alt=""
+                />
+                <img
+                  src="https://i.ibb.co/C8snxfB/comment.png"
+                  class="icon"
+                  alt=""
+                />
+                <img
+                  src="https://i.ibb.co/PYqtjxq/send.png"
+                  class="icon"
+                  alt=""
+                />
+                <img
+                  src="https://i.ibb.co/pbMx5YG/save.png"
+                  class="save icon"
+                  alt=""
+                />
+              </div>
+              <p class="likes">2,625 likes</p>
+              <p class="discription">
+                <span>prasad_gore</span> ☮️ ज़िन्दगी का कोई 📱रिमोट नहीं होता
+                🌄जागो, 🙂उठो और उससे ✌️खुद बदलो
+              </p>
+              <p class="post-time">16 Hour ago</p>
+            </div>
+            <div class="comment-wrapper">
+              <img
+                src="https://i.ibb.co/hL2tMxF/smile.png"
+                class="icon"
+                alt=""
+              />
+              <input
+                type="text"
+                class="comment-box"
+                placeholder="add a comment"
+              />
+              <button class="comment-btn">post</button>
+            </div>
+          </div>
+          <div class="post">
+            <div class="info">
+              <div class="user">
+                <div class="profile-pic">
+                  <img src="https://i.ibb.co/6FShVv5/daya.jpg" alt="" />
+                </div>
+                <p class="username">Dayanand_sonatakke</p>
+              </div>
+              <img
+                src="https://i.ibb.co/JHVjcr1/option.png"
+                class="options"
+                alt=""
+              />
+            </div>
+            <img
+              src="https://i.ibb.co/6FShVv5/daya.jpg"
+              class="post-images"
+              alt=""
+            />
+            <div class="post-content">
+              <div class="reaction-wrapper">
+                <img
+                  src="https://i.ibb.co/wRSVF4N/like.png	"
+                  class="icon"
+                  alt=""
+                />
+                <img
+                  src="https://i.ibb.co/C8snxfB/comment.png"
+                  class="icon"
+                  alt=""
+                />
+                <img
+                  src="https://i.ibb.co/PYqtjxq/send.png"
+                  class="icon"
+                  alt=""
+                />
+                <img
+                  src="https://i.ibb.co/pbMx5YG/save.png"
+                  class="save icon"
+                  alt=""
+                />
+              </div>
+              <p class="likes">465 likes</p>
+              <p class="discription">
+                <span>a_m_o_l____002</span> हस मत पगली प्यार हो जाएगा
+                #hero❤️‍🔥😍
+              </p>
+              <p class="post-time">16 minute ago</p>
+            </div>
+            <div class="comment-wrapper">
+              <img
+                src="https://i.ibb.co/hL2tMxF/smile.png"
+                class="icon"
+                alt=""
+              />
+              <input
+                type="text"
+                class="comment-box"
+                placeholder="add a comment"
+              />
+              <button class="comment-btn">post</button>
+            </div>
+          </div>
+          <div class="post">
+            <div class="info">
+              <div class="user">
+                <div class="profile-pic">
+                  <img src=" https://i.ibb.co/xH922jW/yash.jpg" alt="" />
+                </div>
+                <p class="username">mr.yashhhh__02</p>
+              </div>
+
+              <img
+                src="https://i.ibb.co/JHVjcr1/option.png"
+                class="options"
+                alt=""
+              />
+            </div>
+            <img
+              src="https://i.ibb.co/xH922jW/yash.jpg"
+              class="post-images"
+              alt=""
+            />
+            <div class="post-content">
+              <div class="reaction-wrapper">
+                <img
+                  src="https://i.ibb.co/wRSVF4N/like.png	"
+                  class="icon"
+                  alt=""
+                />
+                <img
+                  src="https://i.ibb.co/C8snxfB/comment.png"
+                  class="icon"
+                  alt=""
+                />
+                <img
+                  src="https://i.ibb.co/PYqtjxq/send.png"
+                  class="icon"
+                  alt=""
+                />
+                <img
+                  src="https://i.ibb.co/pbMx5YG/save.png"
+                  class="save icon"
+                  alt=""
+                />
+              </div>
+              <p class="likes">2,757 likes</p>
+              <p class="discription">
+                <span>a_m_o_l____002</span>#brother's👑❤️‍🔥😍
+              </p>
+              <p class="post-time">2 Days ago</p>
+            </div>
+            <div class="comment-wrapper">
+              <img
+                src="https://i.ibb.co/hL2tMxF/smile.png"
+                class="icon"
+                alt=""
+              />
+              <input
+                type="text"
+                class="comment-box"
+                placeholder="add a comment"
+              />
+              <button class="comment-btn">post</button>
+            </div>
+          </div>
+        </div>
+        <div class="right-col">
+          <div class="profile-card">
+            <div class="profile-pic">
+              <img src="https://i.ibb.co/Qm5mTJz/profile.jpg" alt="" />
+            </div>
+            <div>
+              <p class="username">a_m_o_l____002</p>
+              <p class="sub-text">Amol Dike</p>
+            </div>
+            <button class="action-btn">switch</button>
+          </div>
+          <p class="suggestion-text">Suggetiond For You</p>
+          <div class="profile-card">
+            <div class="profile-pic">
+              <img src="https://i.ibb.co/dgyv9nq/cover-9.png" alt="" />
+            </div>
+            <div>
+              <p class="username">ajit_dada_pawar</p>
+              <p class="sub-text">Follwed By User</p>
+            </div>
+            <button class="action-btn">Follow</button>
+          </div>
+          <div class="profile-card">
+            <div class="profile-pic">
+              <img src="https://i.ibb.co/MCr43pb/cover-12.png" alt="" />
+            </div>
+            <div>
+              <p class="username">kunal_kokane_patil</p>
+              <p class="sub-text">Follwed By User</p>
+            </div>
+            <button class="action-btn">Follow</button>
+          </div>
+          <div class="profile-card">
+            <div class="profile-pic">
+              <img src="https://i.ibb.co/9pcVBzg/cover-11.png" alt="" />
+            </div>
+            <div>
+              <p class="username">karan_nagare</p>
+              <p class="sub-text">Follwed By User</p>
+            </div>
+            <button class="action-btn">Follow</button>
+          </div>
+          <div class="profile-card">
+            <div class="profile-pic">
+              <img src="https://i.ibb.co/jgVhpTZ/cover-2.png" alt="" />
+            </div>
+            <div>
+              <p class="username">selfish__4909</p>
+              <p class="sub-text">Follwed By User</p>
+            </div>
+            <button class="action-btn">Follow</button>
+          </div>
+          <div class="profile-card">
+            <div class="profile-pic">
+              <img src="https://i.ibb.co/Mc64MMy/cover-6.png" alt="" />
+            </div>
+            <div>
+              <p class="username">a_j_a_y____143</p>
+              <p class="sub-text">Follwed By User</p>
+            </div>
+            <button class="action-btn">Follow</button>
+          </div>
+        </div>
+      </div>
+    </section>
+  </body>
+</html>
